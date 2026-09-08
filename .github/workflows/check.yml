@@ -1,0 +1,36 @@
+# Runs on every push and every pull request. The four checks below are exactly the
+# commands in the README's "Develop" section — CI is not a different standard, it is
+# the same one, run on a machine none of us owns. A red check blocks a merge.
+name: check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Install uv (and Python 3.13)
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies from the lockfile
+        run: uv sync --locked
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Formatting
+        run: uv run ruff format --check .
+
+      - name: Types
+        run: uv run mypy src tests
+
+      - name: Tests
+        run: uv run pytest
