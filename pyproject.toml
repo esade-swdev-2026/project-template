@@ -21,6 +21,7 @@ packages = ["src/app"]
 [dependency-groups]
 dev = [
     "mypy>=1.11",
+    "pre-commit>=3.8",
     "pytest>=8",
     "ruff>=0.6",
 ]

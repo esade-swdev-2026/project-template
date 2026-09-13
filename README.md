@@ -30,7 +30,7 @@ uv run app greet World --count 3
 
 ```
 uv run ruff check .          # lint
-uv run ruff format .         # format
+uv run ruff format .         # format (CI runs `--check` and fails on a diff)
 uv run mypy src tests        # types
 uv run pytest                # tests
 ```
